@@ -4,20 +4,27 @@ const { delimiter } = require("ejs");
 
 const app = express();
 
-
+app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.get("/", function(req, res){
     let today = new Date();
-    let currentDay = today.getDay();
-    let day = "";
-    if(currentDay == 6 || currentDay == 0){
-        day = "Weekend";
-    }else {
-        day = "Weekday";
+    let options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
     }
-    res.render('list', {day: day});
+    let day = today.toLocaleDateString("en-US", options);
+
+    res.render('list', {
+        day: day, //day -> day | Current Day = Weekend/Weekday
+    });
 });
+
+app.post("/", function(req, res){
+    let Task = req.body.newTask;
+    console.log(Task);
+})
 
 const port = 3000;
 app.listen(port, function(){
