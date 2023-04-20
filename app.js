@@ -7,6 +7,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
+let items = [];
 app.get("/", function(req, res){
     let today = new Date();
     let options = {
@@ -18,13 +19,15 @@ app.get("/", function(req, res){
 
     res.render('list', {
         day: day, //day -> day | Current Day = Weekend/Weekday
+        items: items,
     });
 });
 
 app.post("/", function(req, res){
-    let Task = req.body.newTask;
-    console.log(Task);
-})
+    item = req.body.newTask;
+    items.push(item);
+    res.redirect("/");
+});
 
 const port = 3000;
 app.listen(port, function(){

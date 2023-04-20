@@ -13,7 +13,9 @@
         <button type="submit" name="button">Add</button>
     </form>
     <ul>
-        <li>ToDo!</li>
+        <% items.forEach(element => { %>
+            <li><%= element %></li>
+        <% }); %>
     </ul>
 </body>
 </html>
