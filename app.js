@@ -8,10 +8,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set('view engine', 'ejs');
 
-let items = [];
-let workItems = [];
+const items = [];
+const workItems = [];
 app.get("/", function(req, res){
-    let day = date.getDay();
+    let day = date.getDate();
     res.render('list', {
         listTitle: day, //day -> day | Current Day = Weekend/Weekday
         items: items,
@@ -41,7 +41,7 @@ app.post("/", function(req, res){
     }
 });
 
-const port = 3000;
+const port = 3000 || env.PORT;
 app.listen(port, function(){
     console.log("Server started on port " + port);
 });
